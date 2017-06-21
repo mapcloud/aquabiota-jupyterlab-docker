@@ -44,6 +44,10 @@ ENV LANG=C.UTF-8
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
+RUN ipython profile create && echo $(ipython locate)
+COPY ipython_config.py $(ipython locate)/profile_default
+
+
 # Expose Jupyter port & cmd
 EXPOSE 8888
 
