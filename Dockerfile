@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-FROM aquabiota/base:16.04
+FROM aquabiota/phusion-base:16.04
 
 LABEL maintainer "Aquabiota Solutions AB <mapcloud@aquabiota.se>"
 
