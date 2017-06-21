@@ -45,7 +45,7 @@ RUN pip install -r requirements.txt
 #COPY ipython_config.py $(ipython locate)/profile_default
 
 # Expose Jupyter port & cmd
-EXPOSE 8888
+EXPOSE 8899
 
 VOLUME ["/opt/notebooks"]
 
