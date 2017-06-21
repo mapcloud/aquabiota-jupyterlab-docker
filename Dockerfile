@@ -46,10 +46,14 @@ RUN pip install -r requirements.txt
 
 # Expose Jupyter port & cmd
 EXPOSE 8899
+EXPOSE 443
 
 VOLUME ["/opt/notebooks"]
 
 WORKDIR $NOTEBOOK_DIR
+# relax the permissions on NOTEBOOK_DIR and files by making them world-readable
+# See security in https://github.com/phusion/baseimage-docker
+RUN chmod 755 $NOTEBOOK_DIR
 
 ## Adding orientdb daemon
 RUN mkdir /etc/service/jupyterlab
