@@ -1,0 +1,2 @@
+pyorient==1.5.5
+s2sphere==0.2.4
