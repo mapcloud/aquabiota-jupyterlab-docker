@@ -9,14 +9,13 @@ LABEL maintainer "Aquabiota Solutions AB <mapcloud@aquabiota.se>"
 ENV CONDA_DIR /opt/conda
 ENV PATH $CONDA_DIR/bin:$PATH
 ENV NOTEBOOK_DIR /opt/notebooks
-ENV JUPYTER_CONFIG_DIR /root/.ipython/profile_default/
+# ENV JUPYTER_CONFIG_DIR /root/.ipython/profile_default/
 
 # Install required packages
 
 RUN apt-get update --fix-missing
 #RUN apt-get install -yq \
-#    python-dev libglib2.0-0 libxext6 libsm6 libxrender1 \
-    # Solving installation-of-package-devtools-had-non-zero-exit-status when R-Kernel is used
+# Solving installation-of-package-devtools-had-non-zero-exit-status when R-Kernel is used
 #    libssl-dev libcurl4-gnutls-dev libxml2-dev
 
 
@@ -49,7 +48,6 @@ RUN pip install -r requirements.txt
 #RUN mkdir -p $JUPYTER_CONFIG_DIR && \
 #    ipython profile create && echo $(ipython locate)
 #COPY ipython_config.py $(ipython locate)/profile_default
-
 
 # Expose Jupyter port & cmd
 EXPOSE 8888
