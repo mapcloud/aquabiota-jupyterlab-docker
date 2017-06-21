@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-FROM aquabiota/base:16.04
+FROM aquabiota/phusion-base:16.04
 
 LABEL maintainer "Aquabiota Solutions AB <mapcloud@aquabiota.se>"
 
@@ -33,7 +33,6 @@ RUN conda config --system --add channels conda-forge && \
 
 RUN mkdir -p /opt/notebooks
 #
-
 
 # installing jupyterlab
 RUN conda install -c conda-forge jupyterlab=0.24.1 && \
