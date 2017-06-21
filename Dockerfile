@@ -13,12 +13,10 @@ ENV NOTEBOOK_DIR /opt/notebooks
 
 # Install required packages
 
-RUN apt-get update --fix-missing
-#RUN apt-get install -yq \
-# Solving installation-of-package-devtools-had-non-zero-exit-status when R-Kernel is used
-#    libssl-dev libcurl4-gnutls-dev libxml2-dev
-
-
+# Solving installation-of-package-devtools-had-non-zero-exit-status
+# if R-Kernel would be used
+RUN apt-get update --fix-missing && \
+    apt-get install -yq libssl-dev libcurl4-gnutls-dev libxml2-dev
 
 RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
     wget --quiet https://repo.continuum.io/archive/Anaconda3-4.4.0-Linux-x86_64.sh -O ~/anaconda.sh && \
@@ -26,16 +24,9 @@ RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
     rm ~/anaconda.sh
 
 RUN conda config --system --add channels conda-forge && \
-<<<<<<< HEAD
-    conda config --system --set auto_update_conda false && \
-=======
     conda config --system --set auto_update_conda false
->>>>>>> 0.24.1
-
-
 
 RUN mkdir -p /opt/notebooks
-#
 
 # installing jupyterlab
 RUN conda install -y -c conda-forge jupyterlab=0.24.1 && \
