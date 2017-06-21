@@ -5,14 +5,19 @@ FROM aquabiota/base:16.04
 
 LABEL maintainer "Aquabiota Solutions AB <mapcloud@aquabiota.se>"
 
+# configuring environment
+ENV CONDA_DIR /opt/conda
+ENV PATH $CONDA_DIR/bin:$PATH
+ENV NOTEBOOK_DIR /opt/notebooks
+ENV JUPYTER_CONFIG_DIR /root/.ipython/profile_default/
+
 # Install required packages
 
-RUN apt install -yq --no-install-recommends \
-    nodejs  musl-dev gcc python-dev make cmake g++ gfortran libpng-dev \
-    freetype-dev libxslt-dev\
-    libglib2.0-0 libxext6 libsm6 libxrender1 \
+RUN apt-get update --fix-missing
+#RUN apt-get install -yq \
+#    python-dev libglib2.0-0 libxext6 libsm6 libxrender1 \
     # Solving installation-of-package-devtools-had-non-zero-exit-status when R-Kernel is used
-    libssl-dev libcurl4-gnutls-dev libxml2-dev
+#    libssl-dev libcurl4-gnutls-dev libxml2-dev
 
 
 
@@ -21,21 +26,18 @@ RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
     /bin/bash ~/anaconda.sh -b -p /opt/conda && \
     rm ~/anaconda.sh
 
-RUN /opt/conda/bin/conda config --system --add channels conda-forge && \
-    /opt/conda/bin/conda config --system --set auto_update_conda false && \
+RUN conda config --system --add channels conda-forge && \
+    conda config --system --set auto_update_conda false && \
     conda clean -tipsy
 
 
-# configuring environment
 RUN mkdir -p /opt/notebooks
 #
-ENV CONDA_DIR /opt/conda
-ENV PATH $CONDA_DIR/bin:$PATH
-ENV NOTEBOOK_DIR /opt/notebooks
+
 
 # installing jupyterlab
 RUN conda install -c conda-forge jupyterlab=0.24.1 && \
-    conda install -c conda-forge geopy=1.11.0
+    conda install -c conda-forge geopy=1.11.0 && \
     conda install bcrypt=3.1.2 passlib=1.7.1 yaml=0.1.6
 
 ENV LANG=C.UTF-8
@@ -44,8 +46,9 @@ ENV LANG=C.UTF-8
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
-RUN ipython profile create && echo $(ipython locate)
-COPY ipython_config.py $(ipython locate)/profile_default
+#RUN mkdir -p $JUPYTER_CONFIG_DIR && \
+#    ipython profile create && echo $(ipython locate)
+#COPY ipython_config.py $(ipython locate)/profile_default
 
 
 # Expose Jupyter port & cmd
