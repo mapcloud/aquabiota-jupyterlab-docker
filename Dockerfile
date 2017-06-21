@@ -27,16 +27,17 @@ RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
 
 RUN conda config --system --add channels conda-forge && \
     conda config --system --set auto_update_conda false && \
-    conda clean -tipsy
+
 
 
 RUN mkdir -p /opt/notebooks
 #
 
 # installing jupyterlab
-RUN conda install -c conda-forge jupyterlab=0.24.1 && \
-    conda install -c conda-forge geopy=1.11.0 && \
-    conda install bcrypt=3.1.2 passlib=1.7.1 yaml=0.1.6
+RUN conda install -y -c conda-forge jupyterlab=0.24.1 && \
+    conda install -y -c conda-forge geopy=1.11.0 && \
+    conda install -y bcrypt=3.1.2 passlib=1.7.1 yaml=0.1.6 && \
+    conda clean -tipsy
 
 ENV LANG=C.UTF-8
 
