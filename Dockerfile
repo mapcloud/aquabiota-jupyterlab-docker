@@ -54,5 +54,7 @@ WORKDIR $NOTEBOOK_DIR
 ## Adding orientdb daemon
 RUN mkdir /etc/service/jupyterlab
 ADD jupyterlab.sh /etc/service/jupyterlab/run
+# run should be executable. Making sure it is
+RUN chmod +x /etc/service/jupyterlab/run
 
 # HEALTHCHECK CMD curl --fail http://localhost:2480/ || exit 1
