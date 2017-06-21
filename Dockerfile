@@ -26,7 +26,11 @@ RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
     rm ~/anaconda.sh
 
 RUN conda config --system --add channels conda-forge && \
+<<<<<<< HEAD
     conda config --system --set auto_update_conda false && \
+=======
+    conda config --system --set auto_update_conda false
+>>>>>>> 0.24.1
 
 
 
